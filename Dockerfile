@@ -5,14 +5,13 @@ ENV JAVA_HOME /man/java
 ENV PATH $JAVA_HOME/bin:$PATH
 
 # see https://github.com/docker-library/docs/tree/master/openjdk
+# https://github.com/adoptium/api.adoptium.net/blob/main/docs/cookbook.adoc#example-three-scripting-a-download-using-the-adoptium-api
 
 RUN set -eux; \
-	export OPENJDK_URL="https://github.com/adoptium/temurin21-binaries/releases/download/jdk-21.0.5%2B11/OpenJDK21U-jdk_x64_linux_hotspot_21.0.5_11.tar.gz"; \
-	export OPENJDK_FILE="OpenJDK21U-jdk_x64_linux_hotspot_21.0.5_11.tar.gz"; \
-	wget -O "$OPENJDK_FILE" "$OPENJDK_URL"; \	
-	HASH="3c654d98404c073b8a7e66bffb27f4ae3e7ede47d13284c132d40a83144bfd8c"; \
-	HASH="$HASH $OPENJDK_FILE"; \
-	echo $HASH | sha256sum -c; \
+	API_URL="https://api.adoptium.net/v3/binary/latest/21/ga/linux/x64/jdk/hotspot/normal/eclipse"; \
+	export OPENJDK_URL=$(curl -w %{redirect_url} "${API_URL}"); \
+	export OPENJDK_FILE=$(curl -OL -w %{filename_effective} "${OPENJDK_URL}"); \
+	curl -L "${OPENJDK_URL}.sha256.txt" | sha256sum -c; \
 	mkdir -p "$JAVA_HOME"; \
 	tar --extract \
 		--file "$OPENJDK_FILE" \
@@ -21,7 +20,7 @@ RUN set -eux; \
 		--no-same-owner \
 	; \
 	rm "$OPENJDK_FILE"; \
-	echo "[$(date)]  [$DOCKER_NAME] [$OPENJDK_URL]" >> /.components; \
+	echo "[$(date)]  [$DOCKER_NAME] [$OPENJDK_FILE]" >> /.components; \
 	javac --version; \
 	java --version; 
 
