@@ -7,7 +7,7 @@ ENV PATH $JAVA_HOME/bin:$PATH
 # see https://github.com/docker-library/docs/tree/master/openjdk
 
 RUN set -eux; \
-	export OPENJDK_URL="https://github.com/adoptium/temurin21-binaries/releases/download/jdk-21.0.3%2B9/OpenJDK21U-jdk_x64_linux_hotspot_21.0.5_11.tar.gz"; \
+	export OPENJDK_URL="https://github.com/adoptium/temurin21-binaries/releases/download/jdk-21.0.5%2B11/OpenJDK21U-jdk_x64_linux_hotspot_21.0.5_11.tar.gz"; \
 	export OPENJDK_FILE="OpenJDK21U-jdk_x64_linux_hotspot_21.0.5_11.tar.gz"; \
 	wget -O "$OPENJDK_FILE" "$OPENJDK_URL"; \	
 	HASH="3c654d98404c073b8a7e66bffb27f4ae3e7ede47d13284c132d40a83144bfd8c"; \
@@ -24,3 +24,4 @@ RUN set -eux; \
 	echo "[$(date)]  [$DOCKER_NAME] [$OPENJDK_URL]" >> /.components; \
 	javac --version; \
 	java --version; 
+
