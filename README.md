@@ -9,6 +9,7 @@ Dockerfile for a dockerimage containing Adoptium OpenJDK 21 on [Debian 12](https
 
 ## Update History:
 
+* 2024-11-13: jdk-21.0.5+11 from 16 October 2024
 * 2024-04-23: jdk-21.0.3+9 from 18 April 2024
 
 ## References
