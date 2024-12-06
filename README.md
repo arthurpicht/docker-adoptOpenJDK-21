@@ -4,8 +4,8 @@ Dockerfile for a dockerimage containing Adoptium OpenJDK 21 on [Debian 12](https
 
 ## Build image locally
 
-    docker build -t arthurpicht/debian-12:latest https://github.com/arthurpicht/docker-debian-12.git2
-    docker build -t arthurpicht/adoptopenjdk-21:latest https://github.com/arthurpicht/docker-adoptOpenJDK-21.git 
+    docker build -t arthurpicht/debian-12:latest https://github.com/arthurpicht/docker-debian-12.git#develop
+    docker build -t arthurpicht/adoptopenjdk-21:latest https://github.com/arthurpicht/docker-adoptOpenJDK-21.git#develop
 
 ## Update History:
 
